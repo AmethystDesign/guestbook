@@ -24,14 +24,17 @@ RUN go build -o main main.go
 
 FROM ubuntu:18.04
 
-<Please fill in the required Docker command> --from=builder /app/main /app/guestbook
+# Copy the application files to the working directory
+COPY --from=builder /app/main /app/guestbook
 
-<Please fill in the required Docker command> public/index.html /app/public/index.html
-<Please fill in the required Docker command> public/script.js /app/public/script.js
-<Please fill in the required Docker command> public/style.css /app/public/style.css
-<Please fill in the required Docker command> public/jquery.min.js /app/public/jquery.min.js
+COPY public/index.html /app/public/index.html
+COPY public/script.js /app/public/script.js
+COPY public/style.css /app/public/style.css
+COPY public/jquery.min.js /app/public/jquery.min.js
 
 WORKDIR /app
 
 CMD ["./guestbook"]
-<Please fill in the required Docker command> 3000
+
+# Make port 3000 available to the world outside this container
+EXPOSE 3000
